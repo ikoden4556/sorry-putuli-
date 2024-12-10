@@ -22,9 +22,10 @@ body {
 }
 
 .gif {
-    max-width: 100%;  /* Ensure it scales responsively */
+    max-width: 100%;
     height: auto;
     margin-bottom: 20px;
+    transform: translateX(20px);  /* Move the GIF slightly to the right */
 }
 
 h2 {
