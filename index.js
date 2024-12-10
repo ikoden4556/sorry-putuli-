@@ -1,65 +1,61 @@
-// GIF sequences
-const openingGifs = ["opening1.gif", "opening2.gif"];
-const yesGifs = ["yes1.gif", "yes2.gif", "yes3.gif", "yes4.gif"];
-const noGifs = ["no1.gif", "no2.gif"];
+document.addEventListener("DOMContentLoaded", () => {
+    const gifDisplay = document.getElementById("gif-display");
+    const apologyText = document.getElementById("apology-text");
+    const btnContainer = document.getElementById("btn-container");
+    const yesBtn = document.querySelector(".yes-btn");
+    const noBtn = document.querySelector(".no-btn");
 
-// Element selectors
-const gif = document.querySelector(".gif");
-const apologyText = document.querySelector(".apology-text");
-const buttonGroup = document.querySelector(".btn-group");
-const yesBtn = document.querySelector(".yes-btn");
-const noBtn = document.querySelector(".no-btn");
+    const gifs = {
+        opening: ["opening1.gif", "opening2.gif"],
+        beforeButtons: "beforebuttons.gif",
+        yes: ["yes1.gif", "yes2.gif", "yes3.gif", "yes4.gif"],
+        no: ["no1.gif", "no2.gif"]
+    };
 
-// Indices for GIF playback
-let openingIndex = 0;
-let yesIndex = 0;
-let noIndex = 0;
+    let noClickCount = 0;
 
-// Play opening GIFs
-function playOpeningGifs() {
-    if (openingIndex < openingGifs.length) {
-        gif.src = openingGifs[openingIndex];
-        gif.classList.remove("hidden");
-        const delay = openingIndex === 0 ? 2000 : 3900; // Adjust duration per GIF
-        openingIndex++;
-        setTimeout(playOpeningGifs, delay);
-    } else {
-        gif.src = "beforebuttons.gif";
-        setTimeout(showApologyText, 2000);
-    }
-}
+    const playGif = (src, callback) => {
+        gifDisplay.src = `https://ikoden4556.github.io/sorry-putuli-/${src}`;
+        gifDisplay.style.display = "block";
+        gifDisplay.onload = () => {
+            setTimeout(() => {
+                gifDisplay.style.display = "none";
+                if (callback) callback();
+            }, gifDisplay.naturalHeight * 10); // Adjust timeout based on GIF length
+        };
+    };
 
-// Show apology text
-function showApologyText() {
-    gif.classList.add("hidden");
-    apologyText.classList.remove("hidden");
-    setTimeout(showButtons, 2000);
-}
+    const startSequence = () => {
+        playGif(gifs.opening[0], () => {
+            playGif(gifs.opening[1], () => {
+                apologyText.classList.remove("hidden");
+                setTimeout(() => {
+                    playGif(gifs.beforeButtons, () => {
+                        btnContainer.classList.remove("hidden");
+                    });
+                }, 1000);
+            });
+        });
+    };
 
-// Show buttons
-function showButtons() {
-    apologyText.classList.add("hidden");
-    buttonGroup.classList.remove("hidden");
-}
+    yesBtn.addEventListener("click", () => {
+        btnContainer.classList.add("hidden");
+        let gifIndex = 0;
+        const playYesGifs = () => {
+            if (gifIndex < gifs.yes.length) {
+                playGif(gifs.yes[gifIndex], () => {
+                    gifIndex++;
+                    playYesGifs();
+                });
+            }
+        };
+        playYesGifs();
+    });
 
-// Yes button click
-yesBtn.addEventListener("click", () => {
-    if (yesIndex < yesGifs.length) {
-        gif.src = yesGifs[yesIndex];
-        gif.classList.remove("hidden");
-        yesIndex++;
-    } else {
-        yesIndex = 0;
-        gif.src = yesGifs[yesIndex];
-    }
+    noBtn.addEventListener("click", () => {
+        playGif(gifs.no[noClickCount % 2]);
+        noClickCount++;
+    });
+
+    startSequence();
 });
-
-// No button click
-noBtn.addEventListener("click", () => {
-    gif.src = noGifs[noIndex];
-    gif.classList.remove("hidden");
-    noIndex = (noIndex + 1) % noGifs.length; // Alternate between two GIFs
-});
-
-// Start the sequence on page load
-window.onload = playOpeningGifs;
