@@ -4,21 +4,11 @@ const gif = document.querySelector(".gif");
 const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
 
-// Function to play opening gif
-function playOpeningGif() {
-    gif.src = "opening.gif";
-    gif.addEventListener("load", () => {
-        setTimeout(() => {
-            showButtons(); // Show buttons after the gif finishes
-        }, 11800); // Duration of the combined opening gif (11.8 seconds)
-    });
-}
-
-// Function to show the buttons after opening gif finishes
-function showButtons() {
+// Show buttons immediately after the page loads
+document.addEventListener("DOMContentLoaded", () => {
     const btnGroup = document.querySelector(".btn-group");
-    btnGroup.style.display = "flex"; // Show buttons after gif finishes
-}
+    btnGroup.style.display = "flex"; // Show buttons immediately
+});
 
 // Event listener for "Yes" button
 yesBtn.addEventListener("click", () => {
@@ -31,6 +21,3 @@ noBtn.addEventListener("click", () => {
     gif.src = "no.gif"; // Change gif to "no" when user clicks No
     question.innerHTML = "Oh no... Maybe next time."; // Update question
 });
-
-// Start by playing the opening gif
-playOpeningGif();
