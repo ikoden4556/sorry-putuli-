@@ -2,18 +2,17 @@ const gifImage = document.querySelector(".gif");
 const btnGroup = document.querySelector(".btn-group");
 
 function playOpeningGif() {
-  gifImage.src = "opening.gif"; // Update the gif source
+  gifImage.src = "opening.gif"; // Set the gif source
 
   gifImage.addEventListener("load", () => {
     setTimeout(() => {
-      gifImage.classList.add("hidden"); // Hide the GIF after it plays
-      showButtons(); // Show the buttons after the GIF
-    }, 11800); // Duration of the combined GIF in milliseconds
+      showButtons(); // Show buttons after 12 seconds (12000ms)
+    }, 12000); // Wait 12 seconds before showing buttons
   });
 }
 
 function showButtons() {
-  btnGroup.classList.remove("hidden"); // Make buttons visible
+  btnGroup.classList.remove("hidden"); // Remove the hidden class to display buttons
   const yesBtn = document.querySelector(".yes-btn");
   const noBtn = document.querySelector(".no-btn");
 
@@ -22,11 +21,11 @@ function showButtons() {
 }
 
 function playYesGifs() {
-  // Logic to play Yes GIFs
+  // Logic for playing Yes GIFs
 }
 
 function playNoGifs() {
-  // Logic to play No GIFs
+  // Logic for playing No GIFs
 }
 
 // Start by playing the opening GIF
