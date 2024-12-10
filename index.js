@@ -24,27 +24,25 @@ const noGifs = [
 
 let noClickCount = 0;
 
-// Helper function to play a GIF
+// Function to play a single GIF
 function playGif(name, duration, callback) {
     gif.src = `${name}.gif`;
     gif.classList.remove("hidden");
+
     setTimeout(() => {
         gif.classList.add("hidden");
         if (callback) callback();
     }, duration);
 }
 
-// Function to play GIF sequence
+// Recursive function to play a sequence of GIFs
 function playGifSequence(sequence, index = 0, onComplete) {
-    if (index >= sequence.length) {
-        if (onComplete) onComplete();
-        return;
+    if (index < sequence.length) {
+        const { name, duration } = sequence[index];
+        playGif(name, duration, () => playGifSequence(sequence, index + 1, onComplete));
+    } else if (onComplete) {
+        onComplete();
     }
-
-    const { name, duration } = sequence[index];
-    playGif(name, duration, () => {
-        playGifSequence(sequence, index + 1, onComplete);
-    });
 }
 
 // Start the opening sequence
@@ -55,7 +53,7 @@ function startOpeningSequence() {
     });
 }
 
-// Handle Yes button click
+// Handle "Yes" button click
 yesBtn.addEventListener("click", () => {
     btnGroup.classList.add("hidden");
     playGifSequence(yesGifs, 0, () => {
@@ -64,12 +62,12 @@ yesBtn.addEventListener("click", () => {
     });
 });
 
-// Handle No button click
+// Handle "No" button click
 noBtn.addEventListener("click", () => {
     const { name, duration } = noGifs[noClickCount % noGifs.length];
-    noClickCount++;
     playGif(name, duration);
+    noClickCount++;
 });
 
-// Start the sequence on page load
+// Initialize the sequence
 window.addEventListener("DOMContentLoaded", startOpeningSequence);
