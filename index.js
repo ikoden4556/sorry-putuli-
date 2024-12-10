@@ -1,58 +1,47 @@
-const gifSequence = [
-    { id: "opening1", duration: 2000 },
-    { id: "opening2", duration: 3900 },
-    { id: "beforebuttons", duration: 2000 },
-];
-const yesSequence = ["yes1", "yes2", "yes3", "yes4"];
-const noSequence = ["no1", "no2"];
-
-const gifElement = document.getElementById("display-gif");
-const apologyText = document.getElementById("apology-text");
-const buttonContainer = document.getElementById("button-container");
-const yesButton = document.getElementById("yes-button");
-const noButton = document.getElementById("no-button");
+const wrapper = document.querySelector(".wrapper");
+const gif = document.querySelector(".gif");
+const btnGroup = document.querySelector(".btn-group");
+const yesBtn = document.querySelector(".yes-btn");
+const noBtn = document.querySelector(".no-btn");
 
 let noClickCount = 0;
 
-// Helper to display a GIF
-const displayGif = (id, duration) => {
-    gifElement.src = `https://ikoden4556.github.io/sorry-putuli-/${id}.gif`;
-    gifElement.classList.remove("hidden");
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            gifElement.classList.add("hidden");
-            resolve();
-        }, duration);
-    });
-};
+// GIF Display Flow
+const gifSequence = ["opening1.gif", "opening2.gif", "beforebuttons.gif"];
+let currentGif = 0;
 
-// Play Opening Sequence
-const playOpening = async () => {
-    for (const gif of gifSequence) {
-        await displayGif(gif.id, gif.duration);
-    }
-    apologyText.classList.remove("hidden");
-    await displayGif("beforebuttons", 2000);
-    buttonContainer.classList.remove("hidden");
-};
+const yesGifs = ["yes1.gif", "yes2.gif", "yes3.gif", "yes4.gif"];
+const noGifs = ["no1.gif", "no2.gif"];
 
-// Yes Button Click Handler
-yesButton.addEventListener("click", async () => {
-    buttonContainer.classList.add("hidden");
-    for (const id of yesSequence) {
-        await displayGif(id, 2000);
+function displayNextGif() {
+    currentGif++;
+    if (currentGif < gifSequence.length) {
+        gif.src = gifSequence[currentGif];
+    } else {
+        gif.classList.add("hidden");
+        btnGroup.classList.remove("hidden");
     }
-    apologyText.innerText = "Thank you! ❤️";
+}
+
+// Handle Yes Button
+yesBtn.addEventListener("click", () => {
+    gif.classList.remove("hidden");
+    btnGroup.classList.add("hidden");
+    let i = 0;
+    const yesInterval = setInterval(() => {
+        gif.src = yesGifs[i];
+        i++;
+        if (i >= yesGifs.length) clearInterval(yesInterval);
+    }, 2000); // Adjust timing to match your GIF durations
 });
 
-// No Button Click Handler
-noButton.addEventListener("click", async () => {
-    buttonContainer.classList.add("hidden");
-    const id = noSequence[noClickCount % 2];
-    await displayGif(id, id === "no1" ? 1920 : 2940);
+// Handle No Button
+noBtn.addEventListener("click", () => {
+    gif.src = noGifs[noClickCount % noGifs.length];
     noClickCount++;
-    buttonContainer.classList.remove("hidden");
 });
 
-// Start the sequence on page load
-window.addEventListener("DOMContentLoaded", playOpening);
+// Play through opening GIFs on load
+gif.addEventListener("load", () => {
+    setTimeout(displayNextGif, 2000); // Adjust timing to match your GIF durations
+});
