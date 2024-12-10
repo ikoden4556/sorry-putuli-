@@ -12,9 +12,11 @@ function playOpeningGif() {
 }
 
 function showButtons() {
-  btnGroup.classList.remove("hidden"); // Show buttons after the delay
-  btnGroup.style.display = 'flex'; // Ensure buttons are shown in the flexbox layout
-
+  btnGroup.classList.remove("hidden"); // Remove the "hidden" class to display the buttons
+}
+setTimeout(() => {
+  showButtons(); // Call the function after 12 seconds
+}, 12000);
   const yesBtn = document.querySelector(".yes-btn");
   const noBtn = document.querySelector(".no-btn");
 
