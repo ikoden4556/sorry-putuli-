@@ -1,64 +1,37 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: whitesmoke;
-    font-family: Arial, sans-serif;
-}
-
 .hidden {
     display: none;
 }
 
-.gif {
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
-}
-
-.apology-text {
-    font-size: 1.8rem;
-    color: #333;
-    text-align: center;
-    margin: 20px 0;
-}
-
-.btn-group {
+body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 20px;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-button {
+.gif {
+    max-width: 80%;
+    height: auto;
+}
+
+.btn-group button {
+    margin: 10px;
     padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
+    font-size: 18px;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 .yes-btn {
-    background-color: #4caf50;
+    background-color: green;
     color: white;
-}
-
-.yes-btn:hover {
-    background-color: #45a049;
 }
 
 .no-btn {
-    background-color: #f44336;
+    background-color: red;
     color: white;
-}
-
-.no-btn:hover {
-    background-color: #e53935;
 }
