@@ -4,17 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorry, Putuli!</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #fdf6e3;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .gif {
+            max-width: 80%;
+            max-height: 60vh;
+            display: block;
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.5em;
+            color: #e94d58;
+            margin: 15px 0;
+        }
+
+        .btn-group {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        button {
+            position: relative;
+            width: 150px;
+            height: 50px;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 30px;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px gray;
+            border: 2px solid #e94d58;
+        }
+
+        button:nth-child(1) {
+            margin-right: 20px;
+            background: #4caf50;
+        }
+
+        button:nth-child(2) {
+            background: #f44336;
+        }
+    </style>
 </head>
 <body>
-    <div id="content">
-        <img id="display-gif" alt="GIF will display here" class="hidden">
+    <div>
+        <img id="gif" class="gif hidden" alt="GIF will display here">
         <h2 id="apology-text" class="hidden">Will you forgive me?</h2>
-        <div id="button-container" class="hidden">
-            <button id="yes-button">Yes</button>
-            <button id="no-button">No</button>
+        <div id="button-container" class="hidden btn-group">
+            <button id="yes-button">Yes!</button>
+            <button id="no-button">No!</button>
         </div>
     </div>
-    <script src="script.js" defer></script>
+
+    <script>
+        const gifElement = document.getElementById("gif");
+        const apologyText = document.getElementById("apology-text");
+        const buttonContainer = document.getElementById("button-container");
+        const yesButton = document.getElementById("yes-button");
+        const noButton = document.getElementById("no-button");
+
+        const gifSequence = [
+            { id: "opening1", duration: 2000 },
+            { id: "opening2", duration: 3900 },
+            { id: "beforebuttons", duration: 2000 },
+        ];
+
+        const yesSequence = ["yes1", "yes2", "yes3", "yes4"];
+        const noSequence = ["no1", "no2"];
+
+        let noClickCount = 0;
+
+        const displayGif = (id, duration) => {
+            gifElement.src = `https://ikoden4556.github.io/sorry-putuli-/${id}.gif`;
+            gifElement.classList.remove("hidden");
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    gifElement.classList.add("hidden");
+                    resolve();
+                }, duration);
+            });
+        };
+
+        const playOpening = async () => {
+            for (const gif of gifSequence) {
+                await displayGif(gif.id, gif.duration);
+            }
+            apologyText.classList.remove("hidden");
+            buttonContainer.classList.remove("hidden");
+        };
+
+        yesButton.addEventListener("click", async () => {
+            buttonContainer.classList.add("hidden");
+            for (const id of yesSequence) {
+                await displayGif(id, 2000);
+            }
+            apologyText.innerText = "Thank you! ❤️";
+        });
+
+        noButton.addEventListener("click", async () => {
+            const id = noSequence[noClickCount % 2];
+            noClickCount++;
+            await displayGif(id, id === "no1" ? 1920 : 2940);
+        });
+
+        window.addEventListener("DOMContentLoaded", playOpening);
+    </script>
 </body>
 </html>
