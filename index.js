@@ -14,20 +14,22 @@ yesBtn.addEventListener("click", () => {
 noBtn.addEventListener("click", () => {
     gif.src = "no.gif"; // Change gif to "no" when user clicks No
     question.innerHTML = "Oh no... Maybe next time."; // Update question
-    moveNoButton(); // Move the "No" button to a random position every time it's clicked
+    moveNoButton(); // Move the "No" button to a random position
 });
 
 // Function to move the "No" button to a random position
 function moveNoButton() {
-    const maxX = window.innerWidth - noBtn.offsetWidth; // Max X position for the button
-    const maxY = window.innerHeight - noBtn.offsetHeight; // Max Y position for the button
+    // Get the dimensions of the "No" button and window
+    const noBtnRect = noBtn.getBoundingClientRect();
+    const maxX = window.innerWidth - noBtnRect.width;
+    const maxY = window.innerHeight - noBtnRect.height;
 
     // Calculate random positions within the window
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
     // Set the new position for the "No" button
-    noBtn.style.position = "absolute"; // Ensure the button is positioned absolutely
-    noBtn.style.left = randomX + "px"; // Set random left position
-    noBtn.style.top = randomY + "px"; // Set random top position
+    noBtn.style.position = "absolute"; // Make it movable
+    noBtn.style.left = randomX + "px"; // Random horizontal position
+    noBtn.style.top = randomY + "px"; // Random vertical position
 }
