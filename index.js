@@ -1,47 +1,34 @@
-const gifContainer = document.querySelector(".gif-container");
+const wrapper = document.querySelector(".wrapper");
 const gifImage = document.querySelector(".gif");
+const btnGroup = document.querySelector(".btn-group");
 
 function playOpeningGif() {
-  gifImage.src = "opening.gif";
+  gifImage.src = "opening.gif"; // Update the gif source
+
   gifImage.addEventListener("load", () => {
     setTimeout(() => {
-      gifContainer.innerHTML = ""; // Remove the opening GIF after it plays
-      showButtons();
+      gifImage.classList.add("hidden"); // Hide the GIF after it plays
+      showButtons(); // Show the buttons after the GIF
     }, 11800); // Duration of the combined GIF in milliseconds
   });
 }
 
 function showButtons() {
-  const question = document.createElement("h2");
-  question.textContent = "Will you forgive me?";
-  question.className = "question";
+  btnGroup.classList.remove("hidden"); // Make buttons visible
 
-  const btnGroup = document.createElement("div");
-  btnGroup.className = "btn-group";
+  const yesBtn = document.querySelector(".yes-btn");
+  const noBtn = document.querySelector(".no-btn");
 
-  const yesBtn = document.createElement("button");
-  yesBtn.className = "yes-btn";
-  yesBtn.textContent = "Yes!";
   yesBtn.addEventListener("click", () => playYesGifs());
-
-  const noBtn = document.createElement("button");
-  noBtn.className = "no-btn";
-  noBtn.textContent = "No!";
   noBtn.addEventListener("click", () => playNoGifs());
-
-  btnGroup.appendChild(yesBtn);
-  btnGroup.appendChild(noBtn);
-
-  gifContainer.appendChild(question);
-  gifContainer.appendChild(btnGroup);
 }
 
 function playYesGifs() {
-  // Add logic to play the sequential Yes GIFs
+  // Logic to play Yes GIFs
 }
 
 function playNoGifs() {
-  // Add logic to play the No GIFs alternately
+  // Logic to play No GIFs
 }
 
 // Start by playing the opening GIF
