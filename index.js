@@ -1,4 +1,3 @@
-const wrapper = document.querySelector(".wrapper");
 const gifImage = document.querySelector(".gif");
 const btnGroup = document.querySelector(".btn-group");
 
@@ -15,7 +14,6 @@ function playOpeningGif() {
 
 function showButtons() {
   btnGroup.classList.remove("hidden"); // Make buttons visible
-
   const yesBtn = document.querySelector(".yes-btn");
   const noBtn = document.querySelector(".no-btn");
 
