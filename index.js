@@ -7,13 +7,13 @@ const noBtn = document.querySelector(".no-btn");
 // Event listener for "Yes" button
 yesBtn.addEventListener("click", () => {
     gif.src = "yes.gif"; // Change gif to "yes" when user clicks Yes
-    question.innerHTML = "Yay! Thank youuuuuuuuu >.<"; // Update question
+    question.innerHTML = "yippiiii!!!! Thank youuuuuuuuu putuli >.<"; // Update question
 });
 
 // Event listener for "No" button
 noBtn.addEventListener("click", () => {
     gif.src = "no.gif"; // Change gif to "no" when user clicks No
-    question.innerHTML = "Oh no... Maybe next time."; // Update question
+    question.innerHTML = "NOOOOOOOOOOOOO im gonna die plsplspls"; // Update question
     moveNoButton(); // Move the "No" button to a random position
 });
 
