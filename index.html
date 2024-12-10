@@ -1,35 +1,20 @@
-const wrapper = document.querySelector(".wrapper");
-const gifImage = document.querySelector(".gif");
-const btnGroup = document.querySelector(".btn-group");
-
-function playOpeningGif() {
-  gifImage.src = "opening.gif"; // Update the gif source
-
-  gifImage.addEventListener("load", () => {
-    setTimeout(() => {
-      gifImage.classList.add("hidden"); // Hide the GIF after it plays
-      showButtons(); // Show the buttons after the GIF
-    }, 11800); // Duration of the combined GIF in milliseconds
-  });
-}
-
-function showButtons() {
-  btnGroup.classList.remove("hidden"); // Make buttons visible
-
-  const yesBtn = document.querySelector(".yes-btn");
-  const noBtn = document.querySelector(".no-btn");
-
-  yesBtn.addEventListener("click", () => playYesGifs());
-  noBtn.addEventListener("click", () => playNoGifs());
-}
-
-function playYesGifs() {
-  // Logic to play Yes GIFs
-}
-
-function playNoGifs() {
-  // Logic to play No GIFs
-}
-
-// Start by playing the opening GIF
-playOpeningGif();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h2 class="question">Hi, can we be friends again? :)</h2>
+        <img class="gif" alt="gif" src="opening.gif">
+        <div class="btn-group hidden">
+            <button class="yes-btn">Yes!</button>
+            <button class="no-btn">No!</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
