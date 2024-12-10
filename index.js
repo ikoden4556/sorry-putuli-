@@ -29,33 +29,33 @@ function playOpeningGifs() {
 
 // Show apology text
 function showApologyText() {
-    gif.classList.add("hidden");
-    apologyText.classList.remove("hidden");
+    gif.classList.add("hidden");  // Hide gif
+    apologyText.classList.remove("hidden");  // Show apology text
     setTimeout(showButtons, 2000); // Show buttons after delay
 }
 
 // Show buttons
 function showButtons() {
-    apologyText.classList.add("hidden");
-    gif.classList.remove("hidden");
-    buttonGroup.classList.remove("hidden");
+    apologyText.classList.add("hidden");  // Hide apology text
+    gif.classList.remove("hidden");  // Show gif area again
+    buttonGroup.classList.remove("hidden"); // Show buttons
 }
 
 // Yes button click
 yesBtn.addEventListener("click", () => {
     if (yesIndex < yesGifs.length) {
-        gif.src = yesGifs[yesIndex];
+        gif.src = yesGifs[yesIndex];  // Play next "Yes" gif
         yesIndex++;
     } else {
-        gif.src = "yes1.gif"; // Restart or show final GIF as desired
+        gif.src = "yes1.gif";  // Restart or show final GIF if desired
     }
 });
 
 // No button click
 noBtn.addEventListener("click", () => {
-    gif.src = noGifs[noIndex];
-    noIndex = (noIndex + 1) % noGifs.length; // Alternate between the two GIFs
+    gif.src = noGifs[noIndex];  // Play first or second "No" gif
+    noIndex = (noIndex + 1) % noGifs.length;  // Alternate between the two GIFs
 });
 
-// Start the opening GIFs
+// Start the opening GIFs on page load
 window.onload = playOpeningGifs;
