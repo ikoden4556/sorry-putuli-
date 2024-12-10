@@ -1,47 +1,67 @@
-const wrapper = document.querySelector(".wrapper");
-const gif = document.querySelector(".gif");
-const btnGroup = document.querySelector(".btn-group");
-const yesBtn = document.querySelector(".yes-btn");
-const noBtn = document.querySelector(".no-btn");
+const gifDurations = {
+    opening1: 2000, // Duration in milliseconds
+    opening2: 3900,
+    beforebuttons: 2000,
+    yes1: 2000,
+    yes2: 2000,
+    yes3: 2220,
+    yes4: 2600,
+    no1: 1920,
+    no2: 2940,
+};
 
-let noClickCount = 0;
-
-// GIF Display Flow
-const gifSequence = ["opening1.gif", "opening2.gif", "beforebuttons.gif"];
-let currentGif = 0;
-
-const yesGifs = ["yes1.gif", "yes2.gif", "yes3.gif", "yes4.gif"];
-const noGifs = ["no1.gif", "no2.gif"];
-
-function displayNextGif() {
-    currentGif++;
-    if (currentGif < gifSequence.length) {
-        gif.src = gifSequence[currentGif];
-    } else {
-        gif.classList.add("hidden");
-        btnGroup.classList.remove("hidden");
-    }
+function playGif(gifElement, gifName, onEnd) {
+    gifElement.src = `${gifName}.gif`;
+    gifElement.onload = () => {
+        setTimeout(() => {
+            gifElement.src = ""; // Clear GIF after it finishes
+            if (onEnd) onEnd();
+        }, gifDurations[gifName]);
+    };
 }
 
-// Handle Yes Button
-yesBtn.addEventListener("click", () => {
-    gif.classList.remove("hidden");
-    btnGroup.classList.add("hidden");
-    let i = 0;
-    const yesInterval = setInterval(() => {
-        gif.src = yesGifs[i];
-        i++;
-        if (i >= yesGifs.length) clearInterval(yesInterval);
-    }, 2000); // Adjust timing to match your GIF durations
+// Sequence for playing opening GIFs
+playGif(gif, "opening1", () => {
+    playGif(gif, "opening2", () => {
+        showApologyText();
+    });
 });
 
-// Handle No Button
-noBtn.addEventListener("click", () => {
-    gif.src = noGifs[noClickCount % noGifs.length];
-    noClickCount++;
-});
+function showApologyText() {
+    question.innerText = "Will you forgive me?";
+    setTimeout(() => {
+        playGif(gif, "beforebuttons", () => {
+            showButtons();
+        });
+    }, 2000);
+}
 
-// Play through opening GIFs on load
-gif.addEventListener("load", () => {
-    setTimeout(displayNextGif, 2000); // Adjust timing to match your GIF durations
-});
+function showButtons() {
+    btnGroup.style.display = "flex";
+    yesBtn.addEventListener("click", handleYesClick);
+    noBtn.addEventListener("mouseover", handleNoHover);
+}
+
+function handleYesClick() {
+    const yesGifs = ["yes1", "yes2", "yes3", "yes4"];
+    playSequentialGifs(yesGifs, () => {
+        question.innerText = "Thank you so much! ❤️";
+    });
+}
+
+function handleNoHover() {
+    const noGif = noBtn.dataset.played ? "no2" : "no1";
+    noBtn.dataset.played = noGif === "no1" ? "yes" : "no";
+    playGif(gif, noGif);
+}
+
+function playSequentialGifs(gifNames, onComplete) {
+    if (gifNames.length === 0) {
+        if (onComplete) onComplete();
+        return;
+    }
+    const [currentGif, ...remainingGifs] = gifNames;
+    playGif(gif, currentGif, () => {
+        playSequentialGifs(remainingGifs, onComplete);
+    });
+}
