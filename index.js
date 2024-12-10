@@ -1,5 +1,3 @@
-const gifImage = document.querySelector(".gif");
-const btnGroup = document.querySelector(".btn-group");
 // Select the necessary elements
 const wrapper = document.querySelector(".wrapper");
 const question = document.querySelector(".question");
@@ -7,9 +5,9 @@ const gifImage = document.querySelector(".gif");
 const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
 
-// Show the buttons immediately when the page loads (no delay)
+// Show the buttons immediately when the page loads
 const btnGroup = document.querySelector(".btn-group");
-btnGroup.classList.remove("hidden"); // Make the buttons visible
+btnGroup.classList.remove("hidden"); // Ensure buttons are visible
 
 // Event listener for Yes button
 yesBtn.addEventListener("click", () => {
@@ -33,11 +31,11 @@ noBtn.addEventListener("mouseover", () => {
 
 // Function to play opening gif
 function playOpeningGif() {
-  gifImage.src = "opening.gif";
+  gifImage.src = "opening.gif"; // Playing the opening gif
   gifImage.addEventListener("load", () => {
     setTimeout(() => {
       gifImage.src = ""; // Remove the opening GIF after it plays
-    }, 11800); // Duration of the combined GIF in milliseconds
+    }, 11800); // Duration of the combined GIF in milliseconds (11.8 seconds)
   });
 }
 
@@ -58,38 +56,4 @@ function playNoGifs() {
 }
 
 // Initialize the opening GIF when the page loads
-playOpeningGif();
-
-function playOpeningGif() {
-  gifImage.src = "opening.gif"; // Set the gif source
-
-  gifImage.addEventListener("load", () => {
-    setTimeout(() => {
-      showButtons(); // Show buttons after 12 seconds (12000ms)
-    }, 12000); // Wait 12 seconds before showing buttons
-  });
-}
-
-function showButtons() {
-  btnGroup.classList.remove("hidden"); // Remove the "hidden" class to display the buttons
-}
-setTimeout(() => {
-  showButtons(); // Call the function after 12 seconds
-}, 12000);
-  const yesBtn = document.querySelector(".yes-btn");
-  const noBtn = document.querySelector(".no-btn");
-
-  yesBtn.addEventListener("click", () => playYesGifs());
-  noBtn.addEventListener("click", () => playNoGifs());
-}
-
-function playYesGifs() {
-  // Logic for playing Yes GIFs
-}
-
-function playNoGifs() {
-  // Logic for playing No GIFs
-}
-
-// Start by playing the opening GIF
 playOpeningGif();
