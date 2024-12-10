@@ -1,73 +1,48 @@
-const gif = document.querySelector(".gif");
-const question = document.querySelector(".question");
-const btnGroup = document.querySelector(".btn-group");
-const yesBtn = document.querySelector(".yes-btn");
-const noBtn = document.querySelector(".no-btn");
+const gifContainer = document.querySelector(".gif-container");
+const gifImage = document.querySelector(".gif");
 
-const gifSequence = [
-    { name: "opening1", duration: 2000 },
-    { name: "opening2", duration: 3900 },
-    { name: "beforebuttons", duration: 2000 },
-];
-
-const yesGifs = [
-    { name: "yes1", duration: 2000 },
-    { name: "yes2", duration: 2000 },
-    { name: "yes3", duration: 2220 },
-    { name: "yes4", duration: 2600 },
-];
-
-const noGifs = [
-    { name: "no1", duration: 1920 },
-    { name: "no2", duration: 2940 },
-];
-
-let noClickCount = 0;
-
-// Function to play a single GIF
-function playGif(name, duration, callback) {
-    gif.src = `${name}.gif`;
-    gif.classList.remove("hidden");
-
+function playOpeningGif() {
+  gifImage.src = "opening.gif";
+  gifImage.addEventListener("load", () => {
     setTimeout(() => {
-        gif.classList.add("hidden");
-        if (callback) callback();
-    }, duration);
+      gifContainer.innerHTML = ""; // Remove the opening GIF after it plays
+      showButtons();
+    }, 11800); // Duration of the combined GIF in milliseconds
+  });
 }
 
-// Recursive function to play a sequence of GIFs
-function playGifSequence(sequence, index = 0, onComplete) {
-    if (index < sequence.length) {
-        const { name, duration } = sequence[index];
-        playGif(name, duration, () => playGifSequence(sequence, index + 1, onComplete));
-    } else if (onComplete) {
-        onComplete();
-    }
+function showButtons() {
+  const question = document.createElement("h2");
+  question.textContent = "Will you forgive me?";
+  question.className = "question";
+
+  const btnGroup = document.createElement("div");
+  btnGroup.className = "btn-group";
+
+  const yesBtn = document.createElement("button");
+  yesBtn.className = "yes-btn";
+  yesBtn.textContent = "Yes!";
+  yesBtn.addEventListener("click", () => playYesGifs());
+
+  const noBtn = document.createElement("button");
+  noBtn.className = "no-btn";
+  noBtn.textContent = "No!";
+  noBtn.addEventListener("click", () => playNoGifs());
+
+  btnGroup.appendChild(yesBtn);
+  btnGroup.appendChild(noBtn);
+
+  gifContainer.appendChild(question);
+  gifContainer.appendChild(btnGroup);
 }
 
-// Start the opening sequence
-function startOpeningSequence() {
-    playGifSequence(gifSequence, 0, () => {
-        question.innerText = "Will you forgive me?";
-        btnGroup.classList.remove("hidden");
-    });
+function playYesGifs() {
+  // Add logic to play the sequential Yes GIFs
 }
 
-// Handle "Yes" button click
-yesBtn.addEventListener("click", () => {
-    btnGroup.classList.add("hidden");
-    playGifSequence(yesGifs, 0, () => {
-        question.innerText = "Thank you! ❤️";
-        gif.classList.add("hidden");
-    });
-});
+function playNoGifs() {
+  // Add logic to play the No GIFs alternately
+}
 
-// Handle "No" button click
-noBtn.addEventListener("click", () => {
-    const { name, duration } = noGifs[noClickCount % noGifs.length];
-    playGif(name, duration);
-    noClickCount++;
-});
-
-// Initialize the sequence
-window.addEventListener("DOMContentLoaded", startOpeningSequence);
+// Start by playing the opening GIF
+playOpeningGif();
