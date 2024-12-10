@@ -18,10 +18,13 @@ let noIndex = 0;
 // Play opening GIFs
 function playOpeningGifs() {
     if (openingIndex < openingGifs.length) {
+        console.log(`Playing opening GIF: ${openingGifs[openingIndex]}`);
         gif.src = openingGifs[openingIndex];
+        const delay = openingIndex === 0 ? 2000 : 14000; // Adjust for each GIF duration
         openingIndex++;
-        setTimeout(playOpeningGifs, 2000); // Adjust timing as needed
+        setTimeout(playOpeningGifs, delay); // Move to the next GIF after its duration
     } else {
+        console.log("Finished opening GIFs. Playing 'before buttons' GIF...");
         gif.src = "beforebuttons.gif"; // Play the "before buttons" GIF
         setTimeout(showApologyText, 2000); // Show text after delay
     }
