@@ -19,16 +19,15 @@ noBtn.addEventListener("click", () => {
 
 // Function to move the "No" button to a random position
 function moveNoButton() {
-    const noBtnRect = noBtn.getBoundingClientRect();
-    const maxX = window.innerWidth - noBtnRect.width;
-    const maxY = window.innerHeight - noBtnRect.height;
+    const maxX = window.innerWidth - noBtn.offsetWidth; // Max X position for the button
+    const maxY = window.innerHeight - noBtn.offsetHeight; // Max Y position for the button
 
     // Calculate random positions within the window
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
-    // Set new position for the "No" button
-    noBtn.style.position = "absolute";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
+    // Set the new position for the "No" button
+    noBtn.style.position = "absolute"; // Ensure the button is positioned absolutely
+    noBtn.style.left = randomX + "px"; // Set random left position
+    noBtn.style.top = randomY + "px"; // Set random top position
 }
