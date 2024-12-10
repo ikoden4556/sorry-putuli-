@@ -19,6 +19,7 @@ let noIndex = 0;
 function playOpeningGifs() {
     if (openingIndex < openingGifs.length) {
         gif.src = openingGifs[openingIndex];
+        gif.classList.remove("hidden");
         const delay = openingIndex === 0 ? 2000 : 3900; // Adjust duration per GIF
         openingIndex++;
         setTimeout(playOpeningGifs, delay);
