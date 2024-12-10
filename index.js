@@ -56,3 +56,6 @@ noBtn.addEventListener("click", () => {
     gif.src = noGifs[noIndex];
     noIndex = (noIndex + 1) % noGifs.length; // Alternate between the two GIFs
 });
+
+// Start the opening GIFs
+window.onload = playOpeningGifs;
