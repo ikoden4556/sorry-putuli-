@@ -11,21 +11,22 @@ body {
     min-height: 100vh;
     background: whitesmoke;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    overflow: hidden; /* Prevent scrolling when the content is centered */
+    margin: 0;
 }
 
 .wrapper {
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;  /* Center everything in the wrapper */
+    justify-content: center;
 }
 
 .gif {
     max-width: 100%;
     height: auto;
     margin-bottom: 20px;
-    transform: translateX(-20px);  /* Move the GIF slightly to the right */
+    display: block;
 }
 
 h2 {
@@ -38,9 +39,9 @@ h2 {
 .btn-group {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    width: 100%;
     margin-top: 50px;
+    width: 100%;
+    gap: 20px; /* Ensures there is space between the buttons */
 }
 
 button {
@@ -53,6 +54,7 @@ button {
     cursor: pointer;
     box-shadow: 0 2px 4px gray;
     border: 2px solid #e94d58;
+    font-size: 1.2em;
     transition: background-color 0.3s ease;
 }
 
@@ -65,7 +67,18 @@ button:nth-child(2) {
     color: #e94d58;
 }
 
-/* Ensure the buttons don't overlap */
-.btn-group button {
-    margin: 0 10px;
+/* Adjust for small screen sizes */
+@media (max-width: 600px) {
+    .gif {
+        max-width: 90%;  /* Adjust the width of GIF on small screens */
+    }
+
+    button {
+        width: 120px;  /* Make buttons slightly smaller for better fit */
+        height: 40px;
+    }
+
+    .btn-group {
+        gap: 15px;  /* Reduce space between buttons on smaller screens */
+    }
 }
