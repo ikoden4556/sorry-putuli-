@@ -1,36 +1,31 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: whitesmoke;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #fdf6e3;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-.wrapper {
+.hidden {
+    display: none;
+}
+
+#display-gif {
+    max-width: 80%;
+    max-height: 60vh;
+    display: block;
+    margin: 20px auto;
+}
+
+#apology-text {
     text-align: center;
+    font-size: 2rem;
+    color: #5b5b5b;
 }
 
-.gif {
-    max-width: 100%;
-    height: auto;
-    display: none;
-}
-
-h2 {
-    font-size: 1.5em;
-    color: #e94d58;
-    margin: 15px 0;
-    display: none;
-}
-
-.btn-group {
+#button-container {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -38,23 +33,19 @@ h2 {
 }
 
 button {
-    width: 150px;
-    height: 50px;
-    color: white;
-    font-size: 1.2em;
-    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-button.yes-btn {
-    background-color: #28a745;
+#yes-button {
+    background-color: #4caf50;
+    color: white;
 }
 
-button.no-btn {
-    background-color: #dc3545;
-}
-
-.hidden {
-    display: none;
+#no-button {
+    background-color: #f44336;
+    color: white;
 }
