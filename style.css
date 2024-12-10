@@ -1,129 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: whitesmoke;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.container {
+.wrapper {
     text-align: center;
 }
 
 .gif {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
-    margin: 20px auto;
+    display: none;
 }
 
-.apology-text {
-    font-size: 24px;
-    color: #333;
-    margin: 20px 0;
+h2 {
+    font-size: 1.5em;
+    color: #e94d58;
+    margin: 15px 0;
+    display: none;
 }
 
 .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
     margin-top: 20px;
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    color: white;
+    font-size: 1.2em;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+button.yes-btn {
+    background-color: #28a745;
+}
+
+button.no-btn {
+    background-color: #dc3545;
 }
 
 .hidden {
     display: none;
 }
-
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.yes-btn {
-    background-color: green;
-    color: white;
-}
-
-.yes-btn:hover {
-    background-color: darkgreen;
-}
-
-.no-btn {
-    background-color: red;
-    color: white;
-}
-
-.no-btn:hover {
-    background-color: darkred;
-}
-JavaScript
-javascript
-Copy code
-// GIF sequences
-const openingGifs = ["opening1.gif", "opening2.gif"];
-const yesGifs = ["yes1.gif", "yes2.gif", "yes3.gif", "yes4.gif"];
-const noGifs = ["no1.gif", "no2.gif"];
-
-// Element selectors
-const gif = document.querySelector(".gif");
-const apologyText = document.querySelector(".apology-text");
-const buttonGroup = document.querySelector(".btn-group");
-const yesBtn = document.querySelector(".yes-btn");
-const noBtn = document.querySelector(".no-btn");
-
-// Indices for GIF playback
-let openingIndex = 0;
-let yesIndex = 0;
-let noIndex = 0;
-
-// Play opening GIFs
-function playOpeningGifs() {
-    if (openingIndex < openingGifs.length) {
-        gif.src = openingGifs[openingIndex];
-        gif.classList.remove("hidden");
-        const delay = openingIndex === 0 ? 2000 : 3900; // Adjust duration per GIF
-        openingIndex++;
-        setTimeout(playOpeningGifs, delay);
-    } else {
-        gif.src = "beforebuttons.gif";
-        setTimeout(showApologyText, 2000);
-    }
-}
-
-// Show apology text
-function showApologyText() {
-    gif.classList.add("hidden");
-    apologyText.classList.remove("hidden");
-    setTimeout(showButtons, 2000);
-}
-
-// Show buttons
-function showButtons() {
-    apologyText.classList.add("hidden");
-    buttonGroup.classList.remove("hidden");
-}
-
-// Yes button click
-yesBtn.addEventListener("click", () => {
-    if (yesIndex < yesGifs.length) {
-        gif.src = yesGifs[yesIndex];
-        gif.classList.remove("hidden");
-        yesIndex++;
-    } else {
-        yesIndex = 0;
-        gif.src = yesGifs[yesIndex];
-    }
-});
-
-// No button click
-noBtn.addEventListener("click", () => {
-    gif.src = noGifs[noIndex];
-    gif.classList.remove("hidden");
-    noIndex = (noIndex + 1) % noGifs.length; // Alternate between two GIFs
-});
-
-// Start the sequence on page load
-window.onload = playOpeningGifs;
