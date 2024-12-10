@@ -10,7 +10,7 @@ const buttonGroup = document.querySelector(".btn-group");
 const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
 
-// Indices for sequential play
+// Indices for GIF playback
 let openingIndex = 0;
 let yesIndex = 0;
 let noIndex = 0;
@@ -39,7 +39,6 @@ function showApologyText() {
 // Show buttons
 function showButtons() {
     apologyText.classList.add("hidden");
-    gif.classList.remove("hidden");
     buttonGroup.classList.remove("hidden");
 }
 
@@ -47,6 +46,7 @@ function showButtons() {
 yesBtn.addEventListener("click", () => {
     if (yesIndex < yesGifs.length) {
         gif.src = yesGifs[yesIndex];
+        gif.classList.remove("hidden");
         yesIndex++;
     } else {
         yesIndex = 0;
@@ -57,6 +57,7 @@ yesBtn.addEventListener("click", () => {
 // No button click
 noBtn.addEventListener("click", () => {
     gif.src = noGifs[noIndex];
+    gif.classList.remove("hidden");
     noIndex = (noIndex + 1) % noGifs.length; // Alternate between two GIFs
 });
 
